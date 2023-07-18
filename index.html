@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <title>Document</title>
+</head>
+<body>
+    <form action="post" id="formElem">
+       <label for="data">Your data:</label>
+       <input type="text" id="data" name="data" required>
+        <input type="submit" value="Отправить">
+    </form>
+    <div id="out">
+    </div>
+</body>
+</html>
+<script>
+  formElem.onsubmit = async (e) => {
+    e.preventDefault();
+    let response = await fetch('/data_verification.php', {
+      method: 'POST',
+      body: new FormData(formElem)
+    });
+    let result = await response.text();
+    $('#out').text("Записей в базе: "+result );
+  };
+</script>
+
